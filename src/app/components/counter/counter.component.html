@@ -1,0 +1,17 @@
+<div
+  class="w-100 text-center d-flex justify-content-center align-items-center"
+  style="height: 600px"
+>
+  @if (isDone) {
+  <div>
+    <h1 class="text-danger" style="font-size: 100px">Happy New Year 2024!!!</h1>
+    <!-- <button class="btn btn-outline-dark" (click)="reset()">Reset</button> -->
+  </div>
+  } @else {
+  <div>
+    <h1>Counter: {{ count }}</h1>
+    <button class="btn btn-dark" (click)="countdown()">Countdown</button>
+  </div>
+  }
+</div>
+<button class="btn btn-primary" (click)="getInfo()">Weather Forecast</button>

@@ -1,0 +1,88 @@
+<div class="pt-2 vh-100 friend-list">
+  <!-- Messages title -->
+  <div class="d-sm-flex d-block justify-content-between mb-3 px-2 title">
+    <h4>Messages</h4>
+
+    <!-- dropdown button -->
+    <div class="btn-group">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="bi bi-three-dots"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><button class="dropdown-item" type="button">Action</button></li>
+        <li>
+          <button class="dropdown-item" type="button">Another action</button>
+        </li>
+        <li>
+          <button class="dropdown-item" type="button">
+            Something else here
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Search input -->
+  <div class="input-group mb-3 px-2">
+    <span class="input-group-text" id="search-icon">
+      <i class="bi bi-search"></i>
+    </span>
+    <input
+      class="form-control"
+      id="search-input"
+      type="text"
+      placeholder="Search for chats..."
+    />
+  </div>
+
+  <!-- All messages -->
+  <p class="px-2"><i class="bi bi-pin me-2"></i>All messages</p>
+
+  <!-- <div class=""> -->
+  <div
+    class="overflow-y-auto all-message container-fluid"
+    style="max-height: 74%"
+  >
+    @for (friend of friendList; track $index) {
+    <div class="row friend py-2 g-0">
+      <div class="col-12 col-lg-3 text-center">
+        <img
+          class="rounded-circle"
+          src="{{ friend.avatar }}"
+          alt="avatar"
+          width="60"
+          height="60"
+        />
+      </div>
+
+      <div class="col-0 col-sm-12 col-lg-9 d-flex justify-content-between pe-2">
+        <div class="hide">
+          <span class="fw-medium">{{ friend.username }}</span>
+          <p class="my-0 show-message" style="font-size: 13px">
+            {{ friend.message }}
+          </p>
+        </div>
+
+        <div class="d-block hide" style="font-size: 13px">
+          <div class="hide mb-2">{{ friend.time }}s</div>
+          <div
+            class="px-1 bg-danger text-white rounded hide"
+            style="font-size: 12px"
+          >
+            {{ friend.unseenMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <!-- </div> -->
+
+  <!-- All messages -->
+  <!-- <div>Use desktop app</div> -->
+</div>

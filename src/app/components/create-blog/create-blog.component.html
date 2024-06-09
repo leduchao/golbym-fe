@@ -1,0 +1,51 @@
+<p class="fs-5">Hãy viết gì đó nào!</p>
+
+<div class="bg-white p-4 rounded shadow-sm">
+  <form action="" [formGroup]="createBlogForm" (submit)="submitPost()">
+    <div class="mb-4">
+      <label for="title" class="form-label fw-medium">Tiêu đề bài viết</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Hãy nhập tiêu đề..."
+        [formControl]="createBlogForm.controls.title"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="image" class="form-label fw-medium"
+        >Hình ảnh cho bài viết</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        (change)="addFile($event)"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="content" class="form-label fw-medium">Nội dung</label>
+      <ckeditor
+        [editor]="ckEditor"
+        [config]="config"
+        id="content"
+        [formControl]="createBlogForm.controls.content"
+      ></ckeditor>
+    </div>
+
+    <div class="mb-4">
+      <label for="image" class="form-label fw-medium">Các tag liên quan</label>
+      <input
+        type="text"
+        class="form-control"
+        id="tags"
+        [formControl]="createBlogForm.controls.tags"
+        placeholder="Nhập tag liên quan"
+      />
+    </div>
+
+    <button class="btn btn-primary">Tạo</button>
+  </form>
+</div>

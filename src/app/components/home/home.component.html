@@ -1,0 +1,76 @@
+<!-- <div class="row gx-4">
+  <div class="col-md-8">
+    <p class="fs-5">Nổi bật</p>
+
+    @for (blog of blogs; track $index) {
+    <div class="mb-4">
+      <div class="card bg-white shadow-sm" style="width: 100%">
+        @if(blog.image) {
+        <a [routerLink]="['blogs', blog.id]">
+          <img
+            src="{{ blog.image }}"
+            class="card-img-top"
+            alt="blog-image"
+            title="{{ blog.title }}"
+          />
+        </a>
+        }
+        <div class="card-body">
+          <p>
+            <small class="me-2">{{ blog.releaseDate }}</small>
+            <span>|</span>
+            <a href="#" class="ms-2 link-offset-1">
+              <small>{{ blog.author }}</small>
+            </a>
+          </p>
+
+          <a
+            class="fs-4 fw-medium card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+            [routerLink]="['blogs', blog.id]"
+          >
+            {{ blog.title }}
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <div class="col-md-4">
+    <p class="fs-5">Tin tức mới</p>
+
+    @for (blog of blogs; track $index) {
+    <div class="mb-4">
+      <div class="card bg-white shadow-sm" style="width: 100%">
+        @if(blog.image) {
+        <a [routerLink]="['blogs', blog.id]">
+          <img
+            src="{{ blog.image }}"
+            class="card-img-top"
+            alt="blog-image"
+            title="{{ blog.title }}"
+          />
+        </a>
+        }
+        <div class="card-body">
+          <p>
+            <small class="me-2">{{ blog.releaseDate }}</small>
+            <span>|</span>
+            <a href="#" class="ms-2 link-offset-1">
+              <small>{{ blog.author }}</small>
+            </a>
+          </p>
+
+          <a
+            class="fw-medium fs-5 card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+            [routerLink]="['blogs', blog.id]"
+          >
+            {{ blog.title }}
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div> -->

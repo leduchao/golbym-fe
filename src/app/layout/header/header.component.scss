@@ -1,0 +1,15 @@
+@media (max-width: 992px) {
+  .brand {
+    border: none !important;
+  }
+}
+
+.nav-link {
+  color: black !important;
+  // padding-bottom: 2px !important;
+}
+
+.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}

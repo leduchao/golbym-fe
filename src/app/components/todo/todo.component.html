@@ -1,0 +1,60 @@
+<div class="row w-75 mx-auto">
+  <form
+    action=""
+    [formGroup]="addJobForm"
+    (submit)="onSubmit()"
+    class="col-sm-12 col-md-5"
+  >
+    <h5>Add job</h5>
+    <div class="input-group">
+      <input
+        formControlName="jobInput"
+        class="form-control"
+        type="text"
+        placeholder="Enter a job..."
+        #inputField
+      />
+      <button class="btn btn-dark input-group-text" type="submit">
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    </div>
+
+    <div
+      *ngIf="
+        jobInput?.hasError('required') && (jobInput?.dirty || jobInput?.touched)
+      "
+      class="text-danger"
+    >
+      Job is required
+    </div>
+  </form>
+
+  <div class="col-sm-12 col-md-7">
+    <h5>Jobs</h5>
+    <ul class="list-group">
+      @if(jobs.length > 0 && jobs !== null) { @for (job of jobs; track job.id) {
+      <li class="list-group-item d-flex justify-content-between">
+        @if(job.isComplete) {
+        <span class="text-decoration-line-through">{{ job.name }}</span>
+        } @else {
+        <span>{{ job.name }}</span>
+        }
+
+        <div>
+          <button class="btn btn-sm btn-success" (click)="updateJob(job.id)">
+            <i class="bi bi-check-lg"></i>
+          </button>
+          <button
+            class="btn btn-sm btn-outline-danger ms-2"
+            (click)="deleteJob(job.id)"
+          >
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      </li>
+      } } @else {
+      <p>There are no jobs!</p>
+      }
+    </ul>
+  </div>
+</div>

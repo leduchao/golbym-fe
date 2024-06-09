@@ -1,0 +1,36 @@
+// .font-16 {
+//     font-size: 16px;
+// }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  // width: 100%;
+  white-space: nowrap;
+  // line-height: 60px;
+}
+
+// .hover-link:hover {
+//   // color: blue;
+//   border-bottom: 2px solid black;
+// }
+
+table {
+  width: 100%;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  #chat-info {
+    display: none;
+  }
+}

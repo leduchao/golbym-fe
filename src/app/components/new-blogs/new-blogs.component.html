@@ -1,0 +1,42 @@
+<p class="fs-5">Post mới</p>
+<div class="row g-4 mb-4">
+  @for (post of posts; track $index) {
+  <div class="col-lg-6 col-sm-12 col-xl-4">
+    <div class="card bg-white" style="height: 15rem">
+      <div class="card-body">
+        <p>
+          <small class="me-2">{{ post.releaseDate }}</small>
+          <span>|</span>
+          <a href="#" class="ms-2">
+            <small>{{ post.author }}</small>
+          </a>
+        </p>
+
+        <a
+          class="fs-5 fw-medium card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+          [routerLink]="[post.id]"
+        >
+          {{ post.title }}
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<div class="d-flex justify-content-center align-items-center w-100">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination no-radius">
+      <li class="page-item">
+        <a class="page-link" href="#">Trang trước</a>
+      </li>
+      @for (page of pages; track $index) {
+      <li class="page-item">
+        <a class="page-link" href="#">{{ page }}</a>
+      </li>
+      }
+      <li class="page-item"><a class="page-link" href="#">Trang sau</a></li>
+    </ul>
+  </nav>
+</div>

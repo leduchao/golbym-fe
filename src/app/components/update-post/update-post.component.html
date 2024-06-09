@@ -1,0 +1,75 @@
+<p class="fs-5">Hãy viết gì đó nào!</p>
+
+<div class="bg-white p-4 rounded shadow-sm">
+  <form action="" [formGroup]="updateForm" (submit)="submitPost(postId)">
+    <div class="mb-4">
+      <label for="title" class="form-label fw-medium">Tiêu đề bài viết</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Hãy nhập tiêu đề..."
+        [formControl]="updateForm.controls.title"
+        [value]="post?.title"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="image" class="form-label fw-medium"
+        >Hình ảnh cho bài viết</label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="image"
+        (change)="addFile($event)"
+      />
+
+      <!-- <label for="">Ảnh hiện tại</label> -->
+      <img
+        src="https://localhost:7242/uploads/{{ post?.thumnail }}"
+        alt="post thumbnail"
+        class="img-fluid mt-2"
+        width="500"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="content" class="form-label fw-medium">Nội dung</label>
+      <ckeditor
+        [editor]="ckEditor"
+        [config]="config"
+        id="content"
+        [formControl]="updateForm.controls.content"
+        [data]="post?.content ?? 'No content'"
+      ></ckeditor>
+    </div>
+
+    <div class="mb-4">
+      <label for="image" class="form-label fw-medium">Các tag liên quan</label>
+      <input
+        type="text"
+        class="form-control"
+        id="tags"
+        [formControl]="updateForm.controls.tags"
+        placeholder="Nhập tag liên quan"
+      />
+    </div>
+
+    <div class="mb-4 d-flex flex-wrap">
+      <span class="">Tags:</span>
+      @for (tag of post?.tags; track $index) {
+      <span>
+        <a href="#" class="ms-2">{{ tag.name }}</a>
+      </span>
+      }
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-outline-primary me-3" routerLink="/posts/{{ postId }}"
+        >Hủy</a
+      >
+      <button class="btn btn-primary">Cập nhật</button>
+    </div>
+  </form>
+</div>

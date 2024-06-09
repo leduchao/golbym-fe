@@ -1,0 +1,23 @@
+.show-message {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.friend:hover {
+  background-color: rgb(13, 110, 253);
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+}
+
+@media (max-width: 700px) {
+  .hide {
+    display: none;
+  }
+
+  // .friend-list {
+  //   // width: 200px;
+  // }
+}
