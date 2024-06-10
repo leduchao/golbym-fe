@@ -25,6 +25,10 @@ export class PostService {
     return this.httpClient.get<Post>(`${this.baseUrl}/${id}`);
   }
 
+  getRelatedPosts(id: string) {
+    return this.httpClient.get<Post[]>(`${this.baseUrl}/related/${id}`);
+  }
+
   createPost(formData: FormData) {
     return this.httpClient.post(this.baseUrl, formData, {
       observe: 'response',

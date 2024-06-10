@@ -13,7 +13,7 @@
 
       <div class="w-100 mb-4">
         <img
-          src="https://localhost:7242/uploads/{{ post?.thumnail }}"
+          src="https://localhost:7242/Uploads/{{ post?.thumnail }}"
           alt="post-image"
           class="img-fluid"
         />
@@ -60,7 +60,7 @@
 
         <a
           class="fw-medium card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-          routerLink="/posts/{{ post.id }}"
+          [routerLink]="['/posts', post.id]"
         >
           {{ post.title }}
           <i class="bi bi-chevron-right"></i>

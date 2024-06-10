@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Kufam:ital,wght@0,400..900;1,400..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 html {
   font-size: 14px;
@@ -16,7 +15,7 @@ html {
 
 body {
   // margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Reddit Sans", sans-serif;
 }
 
 .no-radius {
@@ -38,4 +37,15 @@ body {
 
 .pagination {
   border-radius: 0px !important;
+}
+
+blockquote {
+  font-style: italic;
+  margin: 1em 0em;
+  padding: 1em;
+  border-left: 5px solid #ccc;
+}
+
+blockquote > p {
+  margin-bottom: 0px;
 }

@@ -1,4 +1,11 @@
-import { Component, DoCheck, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  Input,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Post } from '../../interfaces/post';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,6 +16,8 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { AuthSerrvice } from '../../services/auth.service';
+import { NotExpr } from '@angular/compiler';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail',
@@ -17,7 +26,7 @@ import { AuthSerrvice } from '../../services/auth.service';
   templateUrl: './blog-detail.component.html',
   styleUrl: './blog-detail.component.scss',
 })
-export class BlogDetailComponent implements OnInit {
+export class BlogDetailComponent implements OnInit, OnDestroy {
   post: Post | undefined;
   postId: string = '';
   relatedPosts: Post[] = [];
@@ -29,13 +38,25 @@ export class BlogDetailComponent implements OnInit {
   private postService = inject(PostService);
   private authService = inject(AuthSerrvice);
   private router = inject(Router);
+  private routerSub!: Subscription;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.routerSub = this.route.params.subscribe((params) => {
       this.postId = String(params['id']);
+
+      this.loadPost(this.postId);
+      this.loadRelatedPosts(this.postId);
     });
 
-    this.postService.getById(this.postId).subscribe({
+    this.roles = this.authService.getUserRoles();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSub) this.routerSub.unsubscribe();
+  }
+
+  loadPost(postId: string) {
+    this.postService.getById(postId).subscribe({
       next: (post) => {
         this.post = post;
         this.titleService.setTitle(this.post.title);
@@ -45,8 +66,15 @@ export class BlogDetailComponent implements OnInit {
         this.titleService.setTitle('Post detail');
       },
     });
+  }
 
-    this.roles = this.authService.getUserRoles();
+  loadRelatedPosts(postId: string) {
+    this.postService.getRelatedPosts(postId).subscribe({
+      next: (data: Post[]) => {
+        this.relatedPosts = data;
+      },
+      error: (e) => console.log(e),
+    });
   }
 
   deletePost(postId: string) {

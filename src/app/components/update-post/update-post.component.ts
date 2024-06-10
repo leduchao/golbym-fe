@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,6 +13,7 @@ import { PostRequest } from '../../interfaces/post-request';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Post } from '../../interfaces/post';
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-update-post',
@@ -21,7 +22,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './update-post.component.html',
   styleUrl: './update-post.component.scss',
 })
-export class UpdatePostComponent implements OnInit {
+export class UpdatePostComponent implements OnInit, OnDestroy {
   ckEditor = ClassicEditor;
 
   config = {
@@ -32,6 +33,7 @@ export class UpdatePostComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private titleService = inject(Title);
+  private routerSub!: Subscription;
 
   private fileUpload: any;
   postId = '';
@@ -44,11 +46,19 @@ export class UpdatePostComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.routerSub = this.route.params.subscribe((params) => {
       this.postId = String(params['id']);
-    });
 
-    this.postService.getById(this.postId).subscribe({
+      this.loadPost(this.postId);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSub) this.routerSub.unsubscribe();
+  }
+
+  loadPost(postId: string) {
+    this.postService.getById(postId).subscribe({
       next: (post) => {
         this.post = post;
         this.titleService.setTitle(this.post.title);

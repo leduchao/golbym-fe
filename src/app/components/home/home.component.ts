@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPosts(1, 4, this.posts);
-    this.loadPosts(2, 4, this.morePosts);
+    this.loadMorePosts(2, 4);
   }
 
   loadPosts(page: number, numberPosts: number, assignPosts: Post[]) {
@@ -30,6 +30,17 @@ export class HomeComponent implements OnInit {
         // Push new items into assignPosts
         data.items.forEach((item) => assignPosts.push(item));
         // console.log(assignPosts);
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+  }
+
+  loadMorePosts(page: number, numberPosts: number) {
+    this.postService.getAll(page, numberPosts).subscribe({
+      next: (data: PagedResult<Post>) => {
+        this.morePosts = data.items;
       },
       error: (e) => {
         console.log(e);
