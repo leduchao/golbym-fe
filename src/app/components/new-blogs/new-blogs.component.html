@@ -1,6 +1,6 @@
 <p class="fs-5">Post mới</p>
 <div class="row g-4 mb-4">
-  @for (post of posts; track $index) {
+  @for (post of pagedResult.items; track $index) {
   <div class="col-lg-6 col-sm-12 col-xl-4">
     <div class="card bg-white" style="height: 15rem">
       <div class="card-body">
@@ -28,15 +28,46 @@
 <div class="d-flex justify-content-center align-items-center w-100">
   <nav aria-label="Page navigation example">
     <ul class="pagination no-radius">
-      <li class="page-item">
-        <a class="page-link" href="#">Trang trước</a>
+      <li class="page-item" [class.disabled]="pagedResult.currentPage === 1">
+        <button class="page-link" (click)="gotoPage(1)">Trang đầu</button>
       </li>
+
+      <li class="page-item" [class.disabled]="pagedResult.currentPage === 1">
+        <button
+          class="page-link"
+          (click)="gotoPage(pagedResult.currentPage - 1)"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+        </button>
+      </li>
+
       @for (page of pages; track $index) {
-      <li class="page-item">
-        <a class="page-link" href="#">{{ page }}</a>
+      <li class="page-item" [class.active]="pagedResult.currentPage === page">
+        <button class="page-link" (click)="gotoPage(page)">{{ page }}</button>
       </li>
       }
-      <li class="page-item"><a class="page-link" href="#">Trang sau</a></li>
+
+      <li
+        class="page-item"
+        [class.disabled]="pagedResult.currentPage === pagedResult.totalPages"
+      >
+        <button
+          class="page-link"
+          (click)="gotoPage(pagedResult.currentPage + 1)"
+          aria-label="Next"
+        >
+          <span aria-hidden="true">&raquo;</span>
+        </button>
+      </li>
+      <li
+        class="page-item"
+        [class.disabled]="pagedResult.currentPage === pagedResult.totalPages"
+      >
+        <button class="page-link" (click)="gotoPage(pagedResult.totalPages)">
+          Trang cuối
+        </button>
+      </li>
     </ul>
   </nav>
 </div>

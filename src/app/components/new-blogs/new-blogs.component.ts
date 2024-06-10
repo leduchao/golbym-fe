@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { HttpResponse } from '@angular/common/http';
 import { AuthSerrvice } from '../../services/auth.service';
+import { PagedResult } from '../../interfaces/paged-result';
 
 @Component({
   selector: 'app-new-blogs',
@@ -13,22 +14,37 @@ import { AuthSerrvice } from '../../services/auth.service';
   styleUrl: './new-blogs.component.scss',
 })
 export class NewBlogsComponent implements OnInit {
-  posts: Post[] = [];
+  // posts: Post[] = [];
 
-  private pageSize = 9;
+  // private pageSize = 9;
   pages: number[] = [];
+
+  pagedResult: PagedResult<Post> = {
+    currentPage: 0,
+    pageSize: 0,
+    totalItems: 0,
+    totalPages: 0,
+    items: [],
+  };
 
   private postService = inject(PostService);
 
   ngOnInit(): void {
-    this.getAllPost();
+    this.loadPosts();
   }
 
-  getAllPost() {
-    this.postService.getAll().subscribe({
-      next: (posts) => {
-        this.posts = posts;
-        this.paging();
+  loadPosts(page: number = 1) {
+    // page = 3;
+    this.postService.getAll(page).subscribe({
+      next: (data: PagedResult<Post>) => {
+        this.pagedResult = data;
+
+        this.pages = Array.from(
+          {
+            length: this.pagedResult.totalPages,
+          },
+          (_, i) => i + 1
+        );
       },
       error: (err) => {
         console.log(err);
@@ -36,21 +52,18 @@ export class NewBlogsComponent implements OnInit {
     });
   }
 
-  getPostById(id: string) {
-    this.postService.getById(id).subscribe({
-      next: (post) => {
-        console.log(post);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  gotoPage(page: number) {
+    this.loadPosts(page);
   }
 
-  paging(): void {
-    this.pages = Array.from(
-      { length: Math.ceil(this.posts.length / this.pageSize) },
-      (_, i) => i + 1
-    );
-  }
+  // getPostById(id: string) {
+  //   this.postService.getById(id).subscribe({
+  //     next: (post) => {
+  //       console.log(post);
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
 }

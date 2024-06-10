@@ -1,34 +1,34 @@
-<!-- <div class="row gx-4">
+<div class="row gx-4">
   <div class="col-md-8">
     <p class="fs-5">Nổi bật</p>
 
-    @for (blog of blogs; track $index) {
+    @for (post of posts; track $index) {
     <div class="mb-4">
-      <div class="card bg-white shadow-sm" style="width: 100%">
-        @if(blog.image) {
-        <a [routerLink]="['blogs', blog.id]">
+      <div class="card bg-white" style="width: 100%">
+        @if(post.thumnail) {
+        <a [routerLink]="['posts', post.id]">
           <img
-            src="{{ blog.image }}"
-            class="card-img-top"
-            alt="blog-image"
-            title="{{ blog.title }}"
+            src="https://localhost:7242/uploads/{{ post.thumnail }}"
+            class="card-img-top no-radius"
+            alt="post-image"
+            title="{{ post.title }}"
           />
         </a>
         }
         <div class="card-body">
           <p>
-            <small class="me-2">{{ blog.releaseDate }}</small>
+            <small class="me-2">{{ post.releaseDate }}</small>
             <span>|</span>
             <a href="#" class="ms-2 link-offset-1">
-              <small>{{ blog.author }}</small>
+              <small>{{ post.author }}</small>
             </a>
           </p>
 
           <a
             class="fs-4 fw-medium card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-            [routerLink]="['blogs', blog.id]"
+            [routerLink]="['posts', post.id]"
           >
-            {{ blog.title }}
+            {{ post.title }}
             <i class="bi bi-chevron-right"></i>
           </a>
         </div>
@@ -39,33 +39,33 @@
   <div class="col-md-4">
     <p class="fs-5">Tin tức mới</p>
 
-    @for (blog of blogs; track $index) {
+    @for (post of morePosts; track $index) {
     <div class="mb-4">
-      <div class="card bg-white shadow-sm" style="width: 100%">
-        @if(blog.image) {
-        <a [routerLink]="['blogs', blog.id]">
+      <div class="card bg-white" style="width: 100%">
+        @if(post.thumnail) {
+        <a [routerLink]="['posts', post.id]">
           <img
-            src="{{ blog.image }}"
-            class="card-img-top"
-            alt="blog-image"
-            title="{{ blog.title }}"
+            src="https://localhost:7242/uploads/{{ post.thumnail }}"
+            class="card-img-top no-radius"
+            alt="post-image"
+            title="{{ post.title }}"
           />
         </a>
         }
         <div class="card-body">
           <p>
-            <small class="me-2">{{ blog.releaseDate }}</small>
+            <small class="me-2">{{ post.releaseDate }}</small>
             <span>|</span>
             <a href="#" class="ms-2 link-offset-1">
-              <small>{{ blog.author }}</small>
+              <small>{{ post.author }}</small>
             </a>
           </p>
 
           <a
             class="fw-medium fs-5 card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-            [routerLink]="['blogs', blog.id]"
+            [routerLink]="['posts', post.id]"
           >
-            {{ blog.title }}
+            {{ post.title }}
             <i class="bi bi-chevron-right"></i>
           </a>
         </div>
@@ -73,4 +73,4 @@
     </div>
     }
   </div>
-</div> -->
+</div>
