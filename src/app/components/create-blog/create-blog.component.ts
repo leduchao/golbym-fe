@@ -74,12 +74,9 @@ export class CreateBlogComponent {
           console.log(e);
         },
       });
-
-    // console.log(this.createBlogForm.value);
   }
 
   addFile(event: any) {
     this.fileUpload = event.target.files[0];
-    // console.log(this.fileUpload);
   }
 }

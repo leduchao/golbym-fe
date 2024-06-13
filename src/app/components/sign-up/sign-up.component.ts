@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { environment } from '../../../environments/environment.development';
 import {
   HttpClient,
@@ -24,42 +30,91 @@ export class SignUpComponent {
   private httpClient = inject(HttpClient);
   private router = inject(Router);
 
-  signUpForm = new FormGroup({
-    userName: new FormControl(),
-    email: new FormControl(),
-    password: new FormControl(),
-  });
+  isValidForm = true;
+
+  validatorError = {
+    userName: {
+      required: 'Bạn cần nhập tên người dùng!',
+      minLength: 'Tên người dùng cần có ít nhất 3 ký tự!',
+    },
+    password: {
+      required: 'Bạn cần nhập mật khẩu!',
+      minLength: 'Mật khẩu cần có ít nhất 6 ký tự!',
+      missMatchPassword: 'Mật khẩu không trùng khớp!',
+    },
+    email: {
+      required: 'Bạn cần nhập email!',
+      invalidEmail: 'Email không đúng định dạng (example@email.com)',
+    },
+  };
+
+  signUpForm = new FormGroup(
+    {
+      userName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+      confirmPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+    },
+    { validators: this.passwordConfirming }
+  );
 
   submitSignUp() {
     const signUpRequest: SignUpRequest = {
-      userName: this.signUpForm.value.userName,
-      email: this.signUpForm.value.email,
-      password: this.signUpForm.value.password,
+      userName: this.signUpForm.value.userName ?? 'username',
+      email: this.signUpForm.value.email ?? 'password',
+      password: this.signUpForm.value.password ?? 'password',
     };
 
-    this.httpClient
-      .post(this.url, signUpRequest, {
-        observe: 'response',
-      })
-      .subscribe({
-        next: (data: HttpResponse<any>) => {
-          const signUpResponse: IdentityResult = {
-            success: data.body.succeeded,
-            errors: data.body.errors,
-          };
+    if (this.signUpForm.valid) {
+      this.isValidForm = true;
 
-          alert('Đăng ký thành công!');
+      this.httpClient
+        .post(this.url, signUpRequest, {
+          observe: 'response',
+        })
+        .subscribe({
+          next: (data: HttpResponse<any>) => {
+            const signUpResponse: IdentityResult = {
+              success: data.body.succeeded,
+              errors: data.body.errors,
+            };
 
-          this.router.navigateByUrl('/sign-in').then(() => {
-            location.reload();
-          });
-        },
-        error: (err: HttpErrorResponse) => {
-          alert(err.error.errors[0].description);
+            alert('Đăng ký thành công!');
 
-          console.log(err.error.errors);
-          this.signUpForm.reset();
-        },
-      });
+            this.router.navigateByUrl('/sign-in').then(() => {
+              location.reload();
+            });
+          },
+          error: (err: HttpErrorResponse) => {
+            alert(err.error.errors[0].description);
+
+            console.log(err.error.errors);
+            this.signUpForm.reset();
+          },
+        });
+    } else {
+      console.log(this.signUpForm.errors);
+
+      this.isValidForm = false;
+    }
+  }
+
+  passwordConfirming(
+    c: AbstractControl
+  ): { passwordsMismatch: boolean } | null {
+    if (c.get('password')?.value !== c.get('confirmPassword')?.value) {
+      return { passwordsMismatch: true };
+    }
+
+    return null;
   }
 }

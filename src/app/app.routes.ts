@@ -4,11 +4,12 @@ import { BRAND } from './interfaces/brand-name';
 import { HomeComponent } from './components/home/home.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { TodoComponent } from './components/todo/todo.component';
-import { NewBlogsComponent } from './components/new-blogs/new-blogs.component';
-import { BlogDetailComponent } from './components/blog-detail/blog-detail.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { CreateBlogComponent } from './components/create-blog/create-blog.component';
 import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { NewPostsComponent } from './components/new-posts/new-posts.component';
+import { SearchListComponent } from './components/search-list/search-list.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -21,11 +22,6 @@ export const routes: Routes = [
     component: CreateBlogComponent,
     title: BRAND + ' - Create blog',
   },
-  // {
-  //   path: 'update/:id',
-  //   component: ProductDetailsComponent,
-  //   title: BRAND + ' - Product details',
-  // },
   {
     path: 'contact',
     component: ContactComponent,
@@ -33,20 +29,20 @@ export const routes: Routes = [
   },
   {
     path: 'posts',
-    component: NewBlogsComponent,
+    component: NewPostsComponent,
     title: BRAND + ' - Bài viết mới',
   },
   {
     path: 'posts',
     children: [
       {
-        path: ':id',
-        component: BlogDetailComponent,
+        path: 'search',
+        component: SearchListComponent,
       },
-      // {
-      //   path: 'create',
-      //   component: CreateBlogComponent,
-      // },
+      {
+        path: ':id',
+        component: PostDetailComponent,
+      },
       {
         path: 'update/:id',
         component: UpdatePostComponent,
@@ -68,9 +64,9 @@ export const routes: Routes = [
   //   component: TodoComponent,
   //   title: BRAND + ' - Todo app',
   // },
-  // {
-  //   path: '',
-  //   component: CounterComponent,
-  //   title: BRAND + ' - Happy New Year',
-  // },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    title: BRAND + ' - Page not found',
+  },
 ];

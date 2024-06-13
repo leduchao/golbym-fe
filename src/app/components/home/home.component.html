@@ -1,10 +1,11 @@
+@if (isLoaded) {
 <div class="row gx-4">
-  <div class="col-md-8">
+  <div class="col-lg-8">
     <p class="fs-5">Nổi bật</p>
 
     @for (post of posts; track $index) {
     <div class="mb-4">
-      <div class="card bg-white" style="width: 100%">
+      <div class="card bg-white shadow" style="width: 100%">
         @if(post.thumnail) {
         <a [routerLink]="['posts', post.id]">
           <img
@@ -36,12 +37,12 @@
     </div>
     }
   </div>
-  <div class="col-md-4">
+  <div class="col-lg-4">
     <p class="fs-5">Tin tức mới</p>
 
     @for (post of morePosts; track $index) {
     <div class="mb-4">
-      <div class="card bg-white" style="width: 100%">
+      <div class="card bg-white shadow" style="width: 100%">
         @if(post.thumnail) {
         <a [routerLink]="['posts', post.id]">
           <img
@@ -74,3 +75,6 @@
     }
   </div>
 </div>
+} @else {
+<h1>Loading...</h1>
+}

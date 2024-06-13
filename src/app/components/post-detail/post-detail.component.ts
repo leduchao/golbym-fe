@@ -1,32 +1,22 @@
-import {
-  Component,
-  DoCheck,
-  Input,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Post } from '../../interfaces/post';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PostService } from '../../services/post.service';
-import {
-  HttpErrorResponse,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthSerrvice } from '../../services/auth.service';
-import { NotExpr } from '@angular/compiler';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
   imports: [RouterModule],
-  templateUrl: './blog-detail.component.html',
-  styleUrl: './blog-detail.component.scss',
+  templateUrl: './post-detail.component.html',
+  styleUrl: './post-detail.component.scss',
 })
-export class BlogDetailComponent implements OnInit, OnDestroy {
+export class PostDetailComponent implements OnInit, OnDestroy {
+  isLoaded = false;
+
   post: Post | undefined;
   postId: string = '';
   relatedPosts: Post[] = [];
@@ -58,6 +48,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   loadPost(postId: string) {
     this.postService.getById(postId).subscribe({
       next: (post) => {
+        this.isLoaded = true;
         this.post = post;
         this.titleService.setTitle(this.post.title);
       },
@@ -71,6 +62,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   loadRelatedPosts(postId: string) {
     this.postService.getRelatedPosts(postId).subscribe({
       next: (data: Post[]) => {
+        this.isLoaded = true;
         this.relatedPosts = data;
       },
       error: (e) => console.log(e),

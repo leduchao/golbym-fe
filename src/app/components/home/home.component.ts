@@ -14,6 +14,7 @@ import { Post } from '../../interfaces/post';
 export class HomeComponent implements OnInit {
   private postService = inject(PostService);
 
+  isLoaded = false;
   posts: Post[] = [];
   morePosts: Post[] = [];
 
@@ -23,13 +24,15 @@ export class HomeComponent implements OnInit {
   }
 
   loadPosts(page: number, numberPosts: number, assignPosts: Post[]) {
-    this.postService.getAll(page, numberPosts).subscribe({
+    this.postService.getPosts('', page, numberPosts).subscribe({
       next: (data: PagedResult<Post>) => {
+        this.isLoaded = true;
+
         // Clear the existing content of assignPosts
         assignPosts.splice(0, assignPosts.length);
+
         // Push new items into assignPosts
         data.items.forEach((item) => assignPosts.push(item));
-        // console.log(assignPosts);
       },
       error: (e) => {
         console.log(e);
@@ -38,8 +41,10 @@ export class HomeComponent implements OnInit {
   }
 
   loadMorePosts(page: number, numberPosts: number) {
-    this.postService.getAll(page, numberPosts).subscribe({
+    this.postService.getPosts('', page, numberPosts).subscribe({
       next: (data: PagedResult<Post>) => {
+        this.isLoaded = true;
+
         this.morePosts = data.items;
       },
       error: (e) => {

@@ -12,12 +12,9 @@ export class PostService {
 
   private httpClient = inject(HttpClient);
 
-  getAll(page?: number, numberPosts?: number) {
-    page = !page ? 1 : page;
-    numberPosts = !numberPosts ? 9 : numberPosts;
-
+  getPosts(keyword?: string, page?: number, numberPosts?: number) {
     return this.httpClient.get<PagedResult<Post>>(
-      `${this.baseUrl}?page=${page}&numberPosts=${numberPosts}`
+      `${this.baseUrl}?keyword=${keyword}&page=${page}&numberPosts=${numberPosts}`
     );
   }
 

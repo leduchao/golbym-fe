@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '../interfaces/jwt-payload';
 
-export const interceptorInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthSerrvice);
 
   const token = authService.getAccessToken();

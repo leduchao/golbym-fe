@@ -1,0 +1,19 @@
+<div class="card bg-white shadow" style="height: 15rem">
+  <div class="card-body">
+    <p>
+      <small class="me-2">{{ post.releaseDate }}</small>
+      <span>|</span>
+      <a href="#" class="ms-2">
+        <small>{{ post.author }}</small>
+      </a>
+    </p>
+
+    <a
+      class="fs-5 fw-medium card-title link-dark link-offset-1 link-offset-1-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+      [routerLink]="['/posts', post.id]"
+    >
+      {{ post.title }}
+      <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
+</div>

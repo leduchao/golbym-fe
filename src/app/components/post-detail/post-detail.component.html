@@ -1,9 +1,10 @@
+@if (isLoaded) {
 <div class="row gx-4">
   <!-- Featured posts -->
   <div class="col-md-8">
-    <div class="bg-white py-5 mb-4">
+    <div class="bg-white py-5 mb-4 shadow rounded">
       <div class="px-4 mb-4">
-        <p class="fs-3">{{ post?.title }}</p>
+        <p class="fs-2">{{ post?.title }}</p>
 
         <p>
           <span class="me-2">{{ post?.releaseDate }}</span> |
@@ -25,7 +26,12 @@
         <span class="">Tags:</span>
         @for (tag of post?.tags; track $index) {
         <span>
-          <a href="#" class="ms-2">{{ tag.name }}</a>
+          <a
+            [routerLink]="['/posts/search']"
+            [queryParams]="{ keyword: tag.name }"
+            class="ms-2"
+            >{{ tag.name }}</a
+          >
         </span>
         }
       </div>
@@ -48,7 +54,7 @@
     <p class="fs-5">Bài viết liên quan</p>
 
     @for (post of relatedPosts; track $index) {
-    <div class="card bg-white shadow-sm mb-4">
+    <div class="card bg-white shadow mb-4">
       <div class="card-body">
         <p>
           <small class="me-2">{{ post.releaseDate }}</small>
@@ -70,3 +76,6 @@
     }
   </div>
 </div>
+} @else {
+<h1>Loading...</h1>
+}
