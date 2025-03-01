@@ -44,7 +44,6 @@ export class HomeComponent implements OnInit {
     this.postService.getPosts('', page, numberPosts).subscribe({
       next: (data: PagedResult<Post>) => {
         this.isLoaded = true;
-
         this.morePosts = data.items;
       },
       error: (e) => {

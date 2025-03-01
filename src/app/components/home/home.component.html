@@ -6,10 +6,10 @@
     @for (post of posts; track $index) {
     <div class="mb-4">
       <div class="card bg-white shadow" style="width: 100%">
-        @if(post.thumnail) {
+        @if(post.thumbnail) {
         <a [routerLink]="['posts', post.id]">
           <img
-            src="https://localhost:7242/Uploads/{{ post.thumnail }}"
+            src="https://localhost:7242/Uploads/{{ post.thumbnail }}"
             class="card-img-top no-radius"
             alt="post-image"
             title="{{ post.title }}"
@@ -43,10 +43,10 @@
     @for (post of morePosts; track $index) {
     <div class="mb-4">
       <div class="card bg-white shadow" style="width: 100%">
-        @if(post.thumnail) {
+        @if(post.thumbnail) {
         <a [routerLink]="['posts', post.id]">
           <img
-            src="https://localhost:7242/Uploads/{{ post.thumnail }}"
+            src="https://localhost:7242/Uploads/{{ post.thumbnail }}"
             class="card-img-top no-radius"
             alt="post-image"
             title="{{ post.title }}"

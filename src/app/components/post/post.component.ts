@@ -16,7 +16,7 @@ export class PostComponent {
     content: '',
     author: '',
     releaseDate: '',
-    thumnail: '',
+    thumbnail: '',
     tags: [],
   };
 }
