@@ -3,7 +3,7 @@
 <div class="bg-white p-4 rounded shadow-sm">
   <form action="" [formGroup]="updateForm" (submit)="submitPost(postId)">
     <div class="mb-4">
-      <label for="title" class="form-label fw-medium">Tiêu đề bài viết</label>
+      <label for="title" class="form-label fw-medium">Tiêu đề bài viết <span class="text-danger" title="Bắt buộc">(*)</span></label>
       <input
         type="text"
         class="form-control"
@@ -26,16 +26,20 @@
       />
 
       <!-- <label for="">Ảnh hiện tại</label> -->
-      <img
-        src="https://localhost:7242/uploads/{{ post?.thumbnail }}"
-        alt="post thumbnail"
-        class="img-fluid mt-2"
-        width="500"
-      />
+      @if (post?.thumbnail) {
+        <img
+          src="https://localhost:7242/uploads/{{ post?.thumbnail }}"
+          alt="post thumbnail"
+          class="img-fluid mt-2"
+          width="500"
+        />
+      } @else {
+      <p class="fst-italic mt-2">Bài viết chưa có ảnh!</p>
+      }
     </div>
 
     <div class="mb-4">
-      <label for="content" class="form-label fw-medium">Nội dung</label>
+      <label for="content" class="form-label fw-medium">Nội dung <span class="text-danger" title="Bắt buộc">(*)</span></label>
       <ckeditor
         [editor]="ckEditor"
         [config]="config"
@@ -66,10 +70,10 @@
     </div>
 
     <div class="d-flex justify-content-end">
-      <a class="btn btn-outline-primary me-3" routerLink="/posts/{{ postId }}"
+      <a class="btn btn-outline-primary me-3 text-uppercase fs-5 fw-bold" routerLink="/posts/{{ postId }}"
         >Hủy</a
       >
-      <button class="btn btn-primary">Cập nhật</button>
+      <button class="btn btn-primary text-uppercase fs-5 fw-bold">Cập nhật</button>
     </div>
   </form>
 </div>

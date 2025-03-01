@@ -21,6 +21,8 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class CreateBlogComponent {
   ckEditor = ClassicEditor;
+  validTitle = false;
+  validContent = false;
 
   config = {
     placeholder: 'Hãy nhập nội dung...',
@@ -37,6 +39,16 @@ export class CreateBlogComponent {
   private router = inject(Router);
 
   private fileUpload: any;
+
+  ngOnInit() {
+    this.createBlogForm.controls.title.valueChanges.subscribe(value => {
+      this.validTitle = !!(value && value.trim());
+    });
+
+    this.createBlogForm.controls.content.valueChanges.subscribe(value => {
+      this.validContent = !!(value && value.trim());
+    });
+  }
 
   submitPost() {
     const newPost: PostRequest = {

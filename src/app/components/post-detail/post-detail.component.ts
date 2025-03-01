@@ -50,10 +50,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       next: (post) => {
         this.isLoaded = true;
         this.post = post;
-        console.log(this.post);
-
-        let tags = post.tags 
-
         this.titleService.setTitle(this.post.title);
       },
       error: (err: HttpErrorResponse) => {

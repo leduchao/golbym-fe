@@ -12,13 +12,15 @@
         </p>
       </div>
 
-      <div class="w-100 mb-4">
-        <img
-          src="https://localhost:7242/Uploads/{{ post?.thumbnail }}"
-          alt="post-image"
-          class="img-fluid"
-        />
-      </div>
+      @if (post?.thumbnail) {
+        <div class="w-100 mb-4">
+          <img
+            src="https://localhost:7242/Uploads/{{ post?.thumbnail }}"
+            alt="post-image"
+            class="img-fluid"
+          />
+        </div>
+      }
 
       <div [innerHTML]="post?.content" class="px-4 mb-4"></div>
 
@@ -38,10 +40,10 @@
 
       @if (roles == "Admin") {
       <div class="px-4 d-flex justify-content-end">
-        <a class="btn btn-primary me-3" [routerLink]="['/posts/update', postId]"
+        <a class="btn btn-primary me-3 text-uppercase fs-5 fw-bold" [routerLink]="['/posts/update', postId]"
           >Cập nhật bài viết</a
         >
-        <button class="btn btn-outline-danger" (click)="deletePost(postId)">
+        <button class="btn btn-outline-danger text-uppercase fs-5 fw-bold" (click)="deletePost(postId)">
           Xóa bài viết
         </button>
       </div>
